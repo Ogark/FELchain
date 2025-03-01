@@ -41,8 +41,7 @@ The platform consists of four Solidity smart contracts:
 ### Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/onchain-auction-marketplace.git
-   cd onchain-auction-marketplace
+   git clone [https://github.com/Ogark/FELchain/tree/main]
    ```
 2. Install dependencies:
    ```sh
