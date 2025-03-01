@@ -70,3 +70,18 @@ The platform consists of four Solidity smart contracts:
 
 
 
+## Example
+
+A "Hello World" program in Solidity is of even less use than in other languages, but still:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.6.0 <0.9.0;
+
+contract HelloWorld {
+    function helloWorld() external pure returns (string memory) {
+        return "Hello, World!";
+    }
+}
+```
+і
