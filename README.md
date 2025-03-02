@@ -16,26 +16,41 @@ The **On-Chain Auction Marketplace** is a decentralized platform for secure and 
 ## Smart Contracts
 The platform consists of four Solidity smart contracts:
 
-### 1. **XXX.sol**
-- ??????????????????.
+### 1. **EnglishAuc.sol**
+- This file implements 2 smart contracts, 1 contract is the implementation of the auction and the factory contract.
+- 
 
-### 2. **XXX.sol**
+### 2. **DutchAuc.sol**
 - ????????????????????.
 
-### 3. **XXX.sol**
+### 3. **SealedAuc.sol**
 - ???????????????????.
 
-### 4. **XXX.sol**
-- ??????????????????????.
+### 4. **Main.sol**
+## Constructor
+### `constructor(address _eng, address _dut)`
+- Initializes the contract, setting the **owner** and the **factory addresses** for English (`eng`) and Dutch (`dut`) auctions.
 
-### 5. **XXX.sol**
-- ??????????????????.
+## Functions
 
-### 6. **XXX.sol**
-- ????????????????????.
+### `createAuction(AuctionType _type) public payable returns (address)`
+- Creates a new auction of the selected type (**English, Dutch, or Sealed**).
+- Stores the auction address in `auctions` and returns it.
+- Requires a minimum fee of **0.001 ETH**.
 
-### 7. **XXX.sol**
-- ???????????????????.
+### `getAuctionCount() external view returns (uint256)`
+- Returns the total number of created auctions.
+
+### `withdraw() external`
+- Allows only the **contract owner** to withdraw all funds from the contract.
+
+### `isAuction() public view returns (bool)`
+- Checks if `msg.sender` is one of the created auctions.
+
+### `addRating(address _address) external`
+- Increases the **rating** of a user (`rating[_address]`).
+- Can only be called by an auction.
+
 
 ## About Solidity
 **Solidity** is a statically typed programming language designed for writing smart contracts on Ethereum and compatible blockchains. It enables automation and trustless execution of agreements using the Ethereum Virtual Machine (EVM). 
