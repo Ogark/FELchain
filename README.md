@@ -40,7 +40,7 @@ This file contains two contracts: **EnglishAuctionFactory** (factory for auction
 
 ### 4. **Main.sol**
 #### Constructor 
-##### `constructor(address _eng, address _dut, address _seal)`
+`constructor(address _eng, address _dut, address _seal)`
 - Initializes the contract, setting the **owner** and the **factory addresses** for English (`eng`), Dutch (`dut`) and Sealed (`seal`) auctions.
 
 #### Functions
