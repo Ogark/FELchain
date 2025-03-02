@@ -33,10 +33,38 @@ This file contains two contracts: **EnglishAuctionFactory** (factory for auction
 - **`onERC1155Received(...)` & `onERC1155BatchReceived(...)`** – Handle ERC-1155 token transfers.
 
 ### 2. **DutchAuc.sol**
-- ????????????????????.
+This file contains two contracts: **DutchAuctionFactory** (factory for auctions) and **DutchAuction** (auction logic).
+
+#### **DutchAuctionFactory Contract**
+- **`constructor()`** – Sets the deployer as the **owner**.
+- **`setMain(address _main)`** – Assigns the **main** contract (AuctionMain). Only callable by the **owner**.
+- **`createAuction(address seller) returns (address)`** – Creates a **DutchAuction** instance, callable only by **main**.
+
+#### **DutchAuction Contract**
+- **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**.
+- **`create(...)`** – Starts a Dutch auction, setting token details and pricing parameters.
+- **`getCurrentPrice()`** – Calculates the current auction price based on elapsed time.
+- **`buy()`** – Allows a buyer to purchase the asset at the current price. Ends the auction, transfers the asset, and distributes funds (1% fee to **main**).
+- **`withdraw()`** – Lets the seller reclaim the asset if the auction ends without a sale.
+- **`onERC1155Received(...)` & `onERC1155BatchReceived(...)`** – Handle ERC-1155 token transfers.
 
 ### 3. **SealedAuc.sol**
-- ???????????????????.
+This file contains two contracts: **SealedAuctionFactory** (factory for auctions) and **SealedAuction** (auction logic).
+
+#### **SealedAuctionFactory Contract**
+- **`constructor()`** – Sets the deployer as the **owner**.
+- **`setMain(address _main)`** – Assigns the **main** contract (AuctionMain). Only callable by the **owner**.
+- **`createAuction(address seller) returns (address)`** – Creates a **SealedAuction** instance, callable only by **main**.
+
+#### **SealedAuction Contract**
+- **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**.
+- **`create(...)`** – Starts a sealed auction with bidding and reveal periods, setting token details and pricing parameters.
+- **`placeBid(bytes32 _hashedBid)`** – Allows users to place a bid by submitting a hashed value before the bidding period ends.
+- **`generateHash(uint256 _value, string memory _pwd)`** – Generates a hash of the bid for testing purposes.
+- **`revealBids(uint256 _value, string memory _pwd)`** – Reveals bids after the bidding period ends, ensuring the bid is correct and higher than the previous highest.
+- **`withdraw()`** – Lets bidders withdraw their funds if they are outbid.
+- **`endAuction()`** – Ends the auction after the reveal period, transfers the asset to the highest bidder, and disburses the funds (1% fee to **main**).
+- **`onERC1155Received(...)` & `onERC1155BatchReceived(...)`** – Handle ERC-1155 token transfers.
 
 ### 4. **Main.sol**
 #### Constructor 
