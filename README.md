@@ -26,7 +26,7 @@ This file contains two contracts: **EnglishAuctionFactory** (factory for auction
 
 #### **EnglishAuction Contract**
 - **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**. Used by AuctionMain.
-- **`create(...)`** – Starts an English auction, setting token details and pricing parameters. Called only by seller.
+- **`create(...)`** – Starts an English auction, setting token details and pricing parameters. Called only by seller.  
   **Parameters:**
   - **`_tokenAddress`** (address): The address of the token (ERC-20, ERC-721, ERC-1155).
   - **`_tokenId`** (uint256): The ID of the token (only for ERC-721/ERC-1155).
@@ -94,7 +94,7 @@ This file contains two contracts: **SealedAuctionFactory** (factory for auctions
 
 #### **SealedAuction Contract**
 - **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**. Used by AuctionMain.
-- **`create(...)`** – Starts a Sealed auction, setting token details and pricing parameters. Called only by seller.
+- **`create(...)`** – Starts a Sealed auction, setting token details and pricing parameters. Called only by seller.  
   **Parameters:**
   - **`_tokenAddress`** (address): The address of the token (ERC-20, ERC-721, ERC-1155).
   - **`_tokenId`** (uint256): The ID of the token (only for ERC-721/ERC-1155).
