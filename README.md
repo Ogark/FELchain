@@ -32,7 +32,7 @@ This file contains two contracts: **EnglishAuctionFactory** (factory for auction
   - **`_tokenId`** (uint256): The ID of the token (only for ERC-721/ERC-1155).
   - **`_amount`** (uint256): The amount of tokens (only for ERC-20/ERC-1155).
   - **`_info`** (string): Additional information about the auctioned item.
-  - **`_tokenType`** (TokenType): Type of token being auctioned (ERC-20, ERC-721, ERC-1155).
+  - **`_tokenType`** (0,1,2,3): Type of token being auctioned (Only info, ERC-20, ERC-721, ERC-1155).
   - **`_startingValue`** (uint256): The starting bid value for the auction.
   - **`_minRaise`** (uint256): The minimum raise required for each subsequent bid.
   - **`_bidWinTime`** (uint): The time (in seconds) until the auction ends after bid is placed.
@@ -62,11 +62,11 @@ This file contains two contracts: **DutchAuctionFactory** (factory for auctions)
 - **`create(...)`**  
   Starts a Dutch auction, setting token details and pricing parameters. Called only by the seller.  
   **Parameters:**
-  - **`_tokenAddress`** (address): Token address (ERC-20, ERC-721, ERC-1155).
-  - **`_tokenId`** (uint256): Token ID (for ERC-721/ERC-1155).
-  - **`_amount`** (uint256): Amount of tokens (for ERC-20/ERC-1155).
-  - **`_info`** (string): Additional item info.
-  - **`_tokenType`** (TokenType): Type of token (ERC-20, ERC-721, ERC-1155).
+  - **`_tokenAddress`** (address): The address of the token (ERC-20, ERC-721, ERC-1155).
+  - **`_tokenId`** (uint256): The ID of the token (only for ERC-721/ERC-1155).
+  - **`_amount`** (uint256): The amount of tokens (only for ERC-20/ERC-1155).
+  - **`_info`** (string): Additional information about the auctioned item.
+  - **`_tokenType`** (0,1,2,3): Type of token being auctioned (Only info, ERC-20, ERC-721, ERC-1155).
   - **`_startPrice`** (uint256): Auction start price.
   - **`_reservePrice`** (uint256): Reserve price.
   - **`_duration`** (uint256): Auction duration in seconds.
@@ -100,7 +100,7 @@ This file contains two contracts: **SealedAuctionFactory** (factory for auctions
   - **`_tokenId`** (uint256): The ID of the token (only for ERC-721/ERC-1155).
   - **`_amount`** (uint256): The amount of tokens (only for ERC-20/ERC-1155).
   - **`_info`** (string): Additional information about the auctioned item.
-  - **`_tokenType`** (TokenType): Type of token being auctioned (ERC-20, ERC-721, ERC-1155).
+  - **`_tokenType`** (0,1,2,3): Type of token being auctioned (Only info, ERC-20, ERC-721, ERC-1155).
   - **`_minValue`** (uint256): The minimum bid value for the auction.
   - **`_biddingTime`** (uint256): The total duration of the bidding phase in seconds.
   - **`_revealTime`** (uint256): The time (in seconds) allocated for revealing bids after the bidding phase ends.
