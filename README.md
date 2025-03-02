@@ -25,8 +25,8 @@ This file contains two contracts: **EnglishAuctionFactory** (factory for auction
 - **`createAuction(address seller) returns (address)`** – Creates an **EnglishAuction** instance, callable only by **main**.
 
 #### **EnglishAuction Contract**
-- **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**.
-- **`create(...)`** – Creates an auction, transfers assets, and sets bidding parameters.
+- **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**. Used by AuctionMain.
+- **`create(...)`** – Starts an English auction, setting token details and pricing parameters. Called only by seller.
 - **`bid()`** – Places a bid, ensuring it exceeds the previous one by `minRaise`. Refunds the last highest bidder.
 - **`withdraw()`** – Allows users to reclaim their pending refunds.
 - **`endAuction()`** – Ends the auction, transfers the asset to the highest bidder, and pays the seller (minus a 1% fee).
@@ -41,12 +41,34 @@ This file contains two contracts: **DutchAuctionFactory** (factory for auctions)
 - **`createAuction(address seller) returns (address)`** – Creates a **DutchAuction** instance, callable only by **main**.
 
 #### **DutchAuction Contract**
-- **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**.
-- **`create(...)`** – Starts a Dutch auction, setting token details and pricing parameters.
-- **`getCurrentPrice()`** – Calculates the current auction price based on elapsed time.
-- **`buy()`** – Allows a buyer to purchase the asset at the current price. Ends the auction, transfers the asset, and distributes funds (1% fee to **main**).
-- **`withdraw()`** – Lets the seller reclaim the asset if the auction ends without a sale.
-- **`onERC1155Received(...)` & `onERC1155BatchReceived(...)`** – Handle ERC-1155 token transfers.
+
+- **`constructor(address _main, address _seller)`**  
+  Initializes the auction, setting **main** and **seller**. Used by AuctionMain.
+
+- **`create(...)`**  
+  Starts a Dutch auction, setting token details and pricing parameters. Called only by the seller.  
+  **Parameters:**
+  - **`_tokenAddress`** (address): Token address (ERC-20, ERC-721, ERC-1155).
+  - **`_tokenId`** (uint256): Token ID (for ERC-721/ERC-1155).
+  - **`_amount`** (uint256): Amount of tokens (for ERC-20/ERC-1155).
+  - **`_info`** (string): Additional item info.
+  - **`_tokenType`** (TokenType): Type of token (ERC-20, ERC-721, ERC-1155).
+  - **`_startPrice`** (uint256): Auction start price.
+  - **`_reservePrice`** (uint256): Reserve price.
+  - **`_duration`** (uint256): Auction duration in seconds.
+  - **`_buyDuration`** (uint256): Buy-now option duration.
+
+- **`getCurrentPrice()`**  
+  Calculates the current auction price based on the elapsed time.
+
+- **`buy()`**  
+  Allows a buyer to purchase the asset at the current price. Ends the auction, transfers the asset, and distributes funds (1% fee to **main**).
+
+- **`withdraw()`**  
+  Lets the seller reclaim the asset if the auction ends without a sale.
+
+- **`onERC1155Received(...)` & `onERC1155BatchReceived(...)`**  
+  Handle ERC-1155 token transfers.
 
 ### 3. **SealedAuc.sol**
 This file contains two contracts: **SealedAuctionFactory** (factory for auctions) and **SealedAuction** (auction logic).
@@ -57,8 +79,8 @@ This file contains two contracts: **SealedAuctionFactory** (factory for auctions
 - **`createAuction(address seller) returns (address)`** – Creates a **SealedAuction** instance, callable only by **main**.
 
 #### **SealedAuction Contract**
-- **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**.
-- **`create(...)`** – Starts a sealed auction with bidding and reveal periods, setting token details and pricing parameters.
+- **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**. Used by AuctionMain.
+- **`create(...)`** – Starts a Sealed auction, setting token details and pricing parameters. Called only by seller.
 - **`placeBid(bytes32 _hashedBid)`** – Allows users to place a bid by submitting a hashed value before the bidding period ends.
 - **`generateHash(uint256 _value, string memory _pwd)`** – Generates a hash of the bid for testing purposes.
 - **`revealBids(uint256 _value, string memory _pwd)`** – Reveals bids after the bidding period ends, ensuring the bid is correct and higher than the previous highest.
