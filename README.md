@@ -33,12 +33,12 @@ The platform consists of four Solidity smart contracts:
 
 #### Functions
 
-###### `createAuction(AuctionType _type) public payable returns (address)`
+##### `createAuction(AuctionType _type) public payable returns (address)`
 - Creates a new auction of the selected type (**English, Dutch, or Sealed**).
 - Stores the auction address in `auctions` and returns it.
 - Requires a minimum fee of **0.001 ETH**.
 
-###### `getAuctionCount() external view returns (uint256)`
+##### `getAuctionCount() external view returns (uint256)`
 - Returns the total number of created auctions.
 
 ##### `withdraw() external`
