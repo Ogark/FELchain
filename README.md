@@ -5,13 +5,13 @@ The **On-Chain Auction Marketplace** is a decentralized platform for secure and 
 
 ## Features
 - **On-Chain Transparency**: Immutable record of all auction activities.
-- **Multiple Auction Types**: Supports English, Dutch, sealed-bid, and time-based auctions.
+- **Multiple Auction Types**: Supports English, Dutch and sealed-bid auctions.
 - **Smart Contract Automation**: Handles bidding, payments, and asset transfers without intermediaries.
 - **Tokenized Assets**: Supports ERC-20, ERC-721, and ERC-1155 tokens for NFTs, tokens, and real-world assets.
 - **Trustless Payments & Escrow**: Funds are securely held in smart contracts until auction completion.
-- **Decentralized Identity & Reputation**: Trust system based on on-chain activity.
-- **Interoperability**: Supports cross-chain asset auctions.
-- **Web3 Wallet Integration**: Seamless participation via MetaMask or similar wallets.
+- **Decentralized Identity & Reputation**: Rating system based on auctions success.
+- **User fee**: Set auction creation cost and sales commission.
+- **Distribution and optimization**: The main management contract and auction factory contracts are deployed separately.
 
 ## Smart Contracts
 The platform consists of four Solidity smart contracts:
