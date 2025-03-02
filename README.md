@@ -124,6 +124,7 @@ This file contains the **Main** contract, which handles the creation and managem
 - **`constructor(address _eng, address _dut, address _seal)`** – Initializes the contract by setting the **owner** and the factory addresses for English (eng), Dutch (dut), and Sealed (seal) auctions.
 
 #### **Functions**
+- **`changeAdresses(address _eng, address _dut, address _seal)`** – Changes factories adresses. Only owner.
 - **`createAuction(AuctionType _type) public payable returns (address)`** – Creates a new auction of the specified type (English, Dutch, or Sealed). Stores the auction address in the `auctions` array and returns the auction address. Requires a minimum fee of 0.001 ETH.
 - **`getAuctionCount() external view returns (uint256)`** – Returns the total number of created auctions.
 - **`withdraw()` external** – Allows only the contract owner to withdraw all funds from the contract.
