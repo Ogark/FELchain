@@ -51,10 +51,10 @@ The platform consists of four Solidity smart contracts:
 - Increases the **rating** of a user (`rating[_address]`).
 - Can only be called by an auction.
 
-### `auctions(uint256 index) public view returns (address)`
+##### `auctions(uint256 index) public view returns (address)`
 - Allows retrieving the address of an auction at a given `index` in the `auctions` array.
 
-### `rating(address user) public view returns (uint24)`
+##### `rating(address user) public view returns (uint24)`
 - Returns the **rating** of a specific `user`.
 
 
