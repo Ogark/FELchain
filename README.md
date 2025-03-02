@@ -67,35 +67,19 @@ This file contains two contracts: **SealedAuctionFactory** (factory for auctions
 - **`onERC1155Received(...)` & `onERC1155BatchReceived(...)`** – Handle ERC-1155 token transfers.
 
 ### 4. **Main.sol**
-#### Constructor 
-`constructor(address _eng, address _dut, address _seal)`
-- Initializes the contract, setting the **owner** and the **factory addresses** for English (`eng`), Dutch (`dut`) and Sealed (`seal`) auctions.
+This file contains the **Main** contract, which handles the creation and management of auctions.
 
-#### Functions
+#### **Constructor**
+- **`constructor(address _eng, address _dut, address _seal)`** – Initializes the contract by setting the **owner** and the factory addresses for English (eng), Dutch (dut), and Sealed (seal) auctions.
 
-`createAuction(AuctionType _type) public payable returns (address)`
-- Creates a new auction of the selected type (**English, Dutch, or Sealed**).
-- Stores the auction address in `auctions` and returns it.
-- Requires a minimum fee of **0.001 ETH**.
-
-`getAuctionCount() external view returns (uint256)`
-- Returns the total number of created auctions.
-
-`withdraw() external`
-- Allows only the **contract owner** to withdraw all funds from the contract.
-
-`isAuction() public view returns (bool)`
-- Checks if `msg.sender` is one of the created auctions.
-
-`addRating(address _address) external`
-- Increases the **rating** of a user (`rating[_address]`).
-- Can only be called by an auction.
-
-`auctions(uint256 index) public view returns (address)`
-- Allows retrieving the address of an auction at a given `index` in the `auctions` array.
-
-`rating(address user) public view returns (uint24)`
-- Returns the **rating** of a specific `user`.
+#### **Functions**
+- **`createAuction(AuctionType _type) public payable returns (address)`** – Creates a new auction of the specified type (English, Dutch, or Sealed). Stores the auction address in the `auctions` array and returns the auction address. Requires a minimum fee of 0.001 ETH.
+- **`getAuctionCount() external view returns (uint256)`** – Returns the total number of created auctions.
+- **`withdraw()` external** – Allows only the contract owner to withdraw all funds from the contract.
+- **`isAuction() public view returns (bool)`** – Checks if the caller (**msg.sender**) is one of the created auctions.
+- **`addRating(address _address) external`** – Increases the rating of a user (stored in `rating[_address]`). This function can only be called by an auction contract.
+- **`auctions(uint256 index) public view returns (address)`** – Retrieves the address of an auction at a given index in the `auctions` array.
+- **`rating(address user) public view returns (uint24)`** – Returns the rating of a specific user.
 
 ## About Solidity
 **Solidity** is a statically typed programming language designed for writing smart contracts on Ethereum and compatible blockchains. It enables automation and trustless execution of agreements using the Ethereum Virtual Machine (EVM). 
