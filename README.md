@@ -27,9 +27,23 @@ This file contains two contracts: **EnglishAuctionFactory** (factory for auction
 #### **EnglishAuction Contract**
 - **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**. Used by AuctionMain.
 - **`create(...)`** – Starts an English auction, setting token details and pricing parameters. Called only by seller.
+    **Parameters:**
+  - **`_tokenAddress`** (address): The address of the token (ERC-20, ERC-721, ERC-1155).
+  - **`_tokenId`** (uint256): The ID of the token (only for ERC-721/ERC-1155).
+  - **`_amount`** (uint256): The amount of tokens (only for ERC-20/ERC-1155).
+  - **`_info`** (string): Additional information about the auctioned item.
+  - **`_tokenType`** (TokenType): Type of token being auctioned (ERC-20, ERC-721, ERC-1155).
+  - **`_startingValue`** (uint256): The starting bid value for the auction.
+  - **`_minRaise`** (uint256): The minimum raise required for each subsequent bid.
+  - **`_bidWinTime`** (uint): The time (in seconds) until the auction ends after the winning bid is placed.
+  - **`_biddingTime`** (uint256): The total duration of the bidding phase in seconds.
+  
 - **`bid()`** – Places a bid, ensuring it exceeds the previous one by `minRaise`. Refunds the last highest bidder.
+
 - **`withdraw()`** – Allows users to reclaim their pending refunds.
+
 - **`endAuction()`** – Ends the auction, transfers the asset to the highest bidder, and pays the seller (minus a 1% fee).
+
 - **`onERC1155Received(...)` & `onERC1155BatchReceived(...)`** – Handle ERC-1155 token transfers.
 
 ### 2. **DutchAuc.sol**
@@ -56,7 +70,7 @@ This file contains two contracts: **DutchAuctionFactory** (factory for auctions)
   - **`_startPrice`** (uint256): Auction start price.
   - **`_reservePrice`** (uint256): Reserve price.
   - **`_duration`** (uint256): Auction duration in seconds.
-  - **`_buyDuration`** (uint256): Buy-now option duration.
+  - **`_buyDuration`** (uint256): Time until the auction closes (if longer than the duration - the opportunity to buy the item at the minimum price).
 
 - **`getCurrentPrice()`**  
   Calculates the current auction price based on the elapsed time.
