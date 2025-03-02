@@ -35,7 +35,7 @@ This file contains two contracts: **EnglishAuctionFactory** (factory for auction
   - **`_tokenType`** (TokenType): Type of token being auctioned (ERC-20, ERC-721, ERC-1155).
   - **`_startingValue`** (uint256): The starting bid value for the auction.
   - **`_minRaise`** (uint256): The minimum raise required for each subsequent bid.
-  - **`_bidWinTime`** (uint): The time (in seconds) until the auction ends after the winning bid is placed.
+  - **`_bidWinTime`** (uint): The time (in seconds) until the auction ends after bid is placed.
   - **`_biddingTime`** (uint256): The total duration of the bidding phase in seconds.
   
 - **`bid()`** – Places a bid, ensuring it exceeds the previous one by `minRaise`. Refunds the last highest bidder.
@@ -95,11 +95,26 @@ This file contains two contracts: **SealedAuctionFactory** (factory for auctions
 #### **SealedAuction Contract**
 - **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**. Used by AuctionMain.
 - **`create(...)`** – Starts a Sealed auction, setting token details and pricing parameters. Called only by seller.
+   **Parameters:**
+  - **`_tokenAddress`** (address): The address of the token (ERC-20, ERC-721, ERC-1155).
+  - **`_tokenId`** (uint256): The ID of the token (only for ERC-721/ERC-1155).
+  - **`_amount`** (uint256): The amount of tokens (only for ERC-20/ERC-1155).
+  - **`_info`** (string): Additional information about the auctioned item.
+  - **`_tokenType`** (TokenType): Type of token being auctioned (ERC-20, ERC-721, ERC-1155).
+  - **`_minValue`** (uint256): The minimum bid value for the auction.
+  - **`_biddingTime`** (uint256): The total duration of the bidding phase in seconds.
+  - **`_revealTime`** (uint256): The time (in seconds) allocated for revealing bids after the bidding phase ends.
+
 - **`placeBid(bytes32 _hashedBid)`** – Allows users to place a bid by submitting a hashed value before the bidding period ends.
+
 - **`generateHash(uint256 _value, string memory _pwd)`** – Generates a hash of the bid for testing purposes.
+
 - **`revealBids(uint256 _value, string memory _pwd)`** – Reveals bids after the bidding period ends, ensuring the bid is correct and higher than the previous highest.
+
 - **`withdraw()`** – Lets bidders withdraw their funds if they are outbid.
+
 - **`endAuction()`** – Ends the auction after the reveal period, transfers the asset to the highest bidder, and disburses the funds (1% fee to **main**).
+
 - **`onERC1155Received(...)` & `onERC1155BatchReceived(...)`** – Handle ERC-1155 token transfers.
 
 ### 4. **Main.sol**
