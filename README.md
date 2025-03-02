@@ -27,27 +27,27 @@ The platform consists of four Solidity smart contracts:
 - ???????????????????.
 
 ### 4. **Main.sol**
-## Constructor
-### `constructor(address _eng, address _dut)`
+#### Constructor 
+###### `constructor(address _eng, address _dut)`
 - Initializes the contract, setting the **owner** and the **factory addresses** for English (`eng`) and Dutch (`dut`) auctions.
 
-## Functions
+#### Functions
 
-### `createAuction(AuctionType _type) public payable returns (address)`
+###### `createAuction(AuctionType _type) public payable returns (address)`
 - Creates a new auction of the selected type (**English, Dutch, or Sealed**).
 - Stores the auction address in `auctions` and returns it.
 - Requires a minimum fee of **0.001 ETH**.
 
-### `getAuctionCount() external view returns (uint256)`
+###### `getAuctionCount() external view returns (uint256)`
 - Returns the total number of created auctions.
 
-### `withdraw() external`
+##### `withdraw() external`
 - Allows only the **contract owner** to withdraw all funds from the contract.
 
-### `isAuction() public view returns (bool)`
+##### `isAuction() public view returns (bool)`
 - Checks if `msg.sender` is one of the created auctions.
 
-### `addRating(address _address) external`
+##### `addRating(address _address) external`
 - Increases the **rating** of a user (`rating[_address]`).
 - Can only be called by an auction.
 
