@@ -16,60 +16,21 @@ The **On-Chain Auction Marketplace** is a decentralized platform for secure and 
 ## Smart Contracts
 The platform consists of four Solidity smart contracts:
 
-### 1. **EnglishAuc.sol**
-- This file implements 2 smart contracts, 1 contract is the implementation of the auction and the factory contract.
+### **1. EnglishAuc.sol**
+This file contains two contracts: **EnglishAuctionFactory** (factory for auctions) and **EnglishAuction** (auction logic).
 
 #### **EnglishAuctionFactory Contract**
+- **`constructor()`** – Sets the deployer as the **owner**.
+- **`setMain(address _main)`** – Assigns the **main** contract (AuctionMain). Only callable by the **owner**.
+- **`createAuction(address seller) returns (address)`** – Creates an **EnglishAuction** instance, callable only by **main**.
 
-##### **`constructor()`**
-- Initializes the contract and sets the deployer as the **owner**.
-
-#### **`setMain(address _main) public`**
-- Sets the **main** contract address (AuctionMain).
-- Can only be called by the **owner**.
-
-##### **`createAuction(address seller) public returns (address)`**
-- Creates a new **EnglishAuction** contract.
-- Can only be called by the **main** contract.
-- Returns the address of the newly created auction.
-
-### **EnglishAuction Contract**
-
-##### **`constructor(address _main, address _seller)`**
-- Initializes an auction contract, setting:
-  - The **main** auction contract (`_main`).
-  - The **seller** (`_seller`).
-
-##### **`create(...) external nonReentrant`**
-- Creates a new auction with the provided parameters:
-  - **Token details**: Address, ID, Amount, Info, Token Type.
-  - **Auction parameters**: Starting bid, Minimum bid increment, Bid win time, Duration.
-- Transfers the auctioned asset to the contract.
-
-##### **`bid() external payable iscreated nonReentrant`**
-- Allows users to place a bid.
-- Ensures:
-  - The auction is still active.
-  - The new bid is higher than the previous bid by at least `minRaise`.
-- Refunds the previous highest bidder.
-
-##### **`withdraw() external iscreated nonReentrant`**
-- Allows users to withdraw their refundable bid amounts.
-- Ensures that the caller has pending returns.
-
-### **`endAuction() external iscreated nonReentrant`**
-- Ends the auction if:
-  - The auction time has expired.
-  - The highest bid is held for `bidWinTime`.
-- Transfers the winning bid amount to the seller (minus 1% fee to `main` contract).
-- Transfers the auctioned asset to the highest bidder.
-
-##### **`onERC1155Received(...) external pure override returns (bytes4)`**
-- Implements ERC-1155 receiver interface.
-
-##### **`onERC1155BatchReceived(...) external pure override returns (bytes4)`**
-- Implements ERC-1155 batch receiver interface.
-
+#### **EnglishAuction Contract**
+- **`constructor(address _main, address _seller)`** – Initializes the auction, setting **main** and **seller**.
+- **`create(...)`** – Creates an auction, transfers assets, and sets bidding parameters.
+- **`bid()`** – Places a bid, ensuring it exceeds the previous one by `minRaise`. Refunds the last highest bidder.
+- **`withdraw()`** – Allows users to reclaim their pending refunds.
+- **`endAuction()`** – Ends the auction, transfers the asset to the highest bidder, and pays the seller (minus a 1% fee).
+- **`onERC1155Received(...)` & `onERC1155BatchReceived(...)`** – Handle ERC-1155 token transfers.
 
 ### 2. **DutchAuc.sol**
 - ????????????????????.
@@ -84,30 +45,29 @@ The platform consists of four Solidity smart contracts:
 
 #### Functions
 
-##### `createAuction(AuctionType _type) public payable returns (address)`
+`createAuction(AuctionType _type) public payable returns (address)`
 - Creates a new auction of the selected type (**English, Dutch, or Sealed**).
 - Stores the auction address in `auctions` and returns it.
 - Requires a minimum fee of **0.001 ETH**.
 
-##### `getAuctionCount() external view returns (uint256)`
+`getAuctionCount() external view returns (uint256)`
 - Returns the total number of created auctions.
 
-##### `withdraw() external`
+`withdraw() external`
 - Allows only the **contract owner** to withdraw all funds from the contract.
 
-##### `isAuction() public view returns (bool)`
+`isAuction() public view returns (bool)`
 - Checks if `msg.sender` is one of the created auctions.
 
-##### `addRating(address _address) external`
+`addRating(address _address) external`
 - Increases the **rating** of a user (`rating[_address]`).
 - Can only be called by an auction.
 
-##### `auctions(uint256 index) public view returns (address)`
+`auctions(uint256 index) public view returns (address)`
 - Allows retrieving the address of an auction at a given `index` in the `auctions` array.
 
-##### `rating(address user) public view returns (uint24)`
+`rating(address user) public view returns (uint24)`
 - Returns the **rating** of a specific `user`.
-
 
 ## About Solidity
 **Solidity** is a statically typed programming language designed for writing smart contracts on Ethereum and compatible blockchains. It enables automation and trustless execution of agreements using the Ethereum Virtual Machine (EVM). 
